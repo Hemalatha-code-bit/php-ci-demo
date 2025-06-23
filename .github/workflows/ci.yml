@@ -1,4 +1,4 @@
-name: PHP CI
+name: PHP CI/CD Pipeline
 
 on:
   push:
@@ -11,13 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout Code
       uses: actions/checkout@v3
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
         php-version: '8.1'
+        extensions: mbstring, xml
 
     - name: Install Composer
       run: |
@@ -30,7 +31,23 @@ jobs:
       run: composer install
 
     - name: Run PHP CodeSniffer
-      run: ./vendor/bin/phpcs --standard=PSR12 src/
+      run: php ./vendor/bin/phpcs --standard=PSR12 src/
 
     - name: Run PHPUnit Tests
       run: ./vendor/bin/phpunit tests/
+
+    - name: Run Semgrep Security Scan
+      uses: returntocorp/semgrep-action@v1
+      with:
+        config: "p/default"
+
+    - name: Deploy to Remote Server
+      if: github.ref == 'refs/heads/main'
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        password: ${{ secrets.SERVER_PASS }}
+        port: 22
+        source: "./"
+        target: "/var/www/html/php-ci-demo"
