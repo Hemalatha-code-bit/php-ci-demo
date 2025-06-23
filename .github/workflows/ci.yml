@@ -26,15 +26,12 @@ jobs:
         php composer-setup.php
         php -r "unlink('composer-setup.php');"
         mv composer.phar /usr/local/bin/composer
-        
+
     - name: Install Dependencies
       run: composer install
 
-    - name: Make phpcs executable
-      run: chmod +x ./vendor/bin/phpcs
-
     - name: Run PHP CodeSniffer
-      run: ./vendor/bin/phpcs --standard=PSR12 src/
+      run: php ./vendor/bin/phpcs --standard=PSR12 src/
 
 
     - name: Run PHPUnit Tests
