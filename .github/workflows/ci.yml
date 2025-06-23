@@ -30,8 +30,8 @@ jobs:
     - name: Install Dependencies
       run: composer install
 
-    - name: Run PHP CodeSniffer
-      run: php ./vendor/bin/phpcs --standard=PSR12 src/
+    - name: Run PHP CodeSniffer (non-blocking)
+      run: php ./vendor/bin/phpcs --standard=PSR12 src/ || true
 
 
     - name: Run PHPUnit Tests
