@@ -35,7 +35,7 @@ jobs:
 
 
     - name: Run PHPUnit Tests
-      run: ./vendor/bin/phpunit tests/
+      run: php ./vendor/bin/phpunit tests/
 
     - name: Run Semgrep Security Scan
       uses: returntocorp/semgrep-action@v1
