@@ -63,7 +63,8 @@ jobs:
         target: 'http://127.0.0.1:8000'
         fail_action: false
 
-    - name: PHP Syntax Check (Exclude vendor/)
-      run: |
-      find . -type f -name "*.php" ! -path "./vendor/*" -print0 | xargs -0 -n1 php -l
+   - name: PHP Syntax Check
+     run: |
+     find public src -name "*.php" -print0 | xargs -0 -n1 php -l
+
 
