@@ -1,4 +1,5 @@
 <?php
+
 namespace App;
 
 class Calculator
@@ -8,5 +9,5 @@ class Calculator
         return $a + $b;
     }
 }
-"// Trigger build" 
-"// Trigger build" 
+
+// Trigger build  ← this line is fine *only outside* the class
