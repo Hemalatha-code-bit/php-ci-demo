@@ -1,0 +1,7 @@
+rules:
+  - id: avoid-eval
+    patterns:
+      - pattern: eval($X)
+    message: Avoid eval(), can lead to RCE.
+    languages: [php]
+    severity: ERROR
